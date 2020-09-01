@@ -1,0 +1,2187 @@
+<html lang="en"><head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>The Sarcometer</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+
+  <!-- Custom styles for this template -->
+ <link href="/css/scrolling-nav.css" rel="stylesheet">
+
+  <!-- code from 'index12.html' -->
+    <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script> <!-- js for creating linkedIn badge source: https://www.linkedin.com/badges/profile/create?vanityname=william-webb-phd-b303618&preferredlocale=en_US&trk=public_profile-settings_badge -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script> <!-- source - synced carousels: http://jsfiddle.net/SchmalzyB/w8EG9/7/ -->
+   <!-- <link rel="stylesheet" type="text/css" href="/css/result-light.css">--> <!-- source - synced carousels: http://jsfiddle.net/SchmalzyB/w8EG9/7/ -->
+    <script type="text/javascript" src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script> <!-- source - synced carousels: http://jsfiddle.net/SchmalzyB/w8EG9/7/ -->
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css"> <!-- source - synced carousels: http://jsfiddle.net/SchmalzyB/w8EG9/7/ -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Load an icon library to show a hamburger menu (bars) on small screens -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- External CSS  -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- forked jsfiddle with Bjorn's CSS solution for adjusting the location of the..
+... carousel control arrows: http://jsfiddle.net/fe5c9br8/1/ -->
+<style id="compiled-css" type="text/css">
+    .wrap{
+    width: 350px;
+    margin: 0 auto;
+    }
+    .carousel-control.left {margin-left: -75px;}
+    .carousel-control.right {margin-right: -75px;}
+    /* EOS */
+</style>
+    <script id="insert"></script>
+    <script>
+        const customConsole = (w) => {
+        const pushToConsole = (payload, type) => {
+        w.parent.postMessage({
+        console: {
+        payload: payload,
+        type:    type
+                }
+              }, "*")
+            }
+            w.onerror = (message, url, line, column) => {
+              // the line needs to correspond with the editor panel
+              // unfortunately this number needs to be altered every time this view is changed
+              line = line - 70
+              if (line < 0){
+                pushToConsole(message, "error")
+              } else {
+                pushToConsole(`[${line}:${column}] ${message}`, "error")
+              }
+            }
+            let console = (function(systemConsole){
+              return {
+                log: function(){
+                  let args = Array.from(arguments)
+                  pushToConsole(args, "log")
+                  systemConsole.log.apply(this, args)
+                },
+                info: function(){
+                  let args = Array.from(arguments)
+                  pushToConsole(args, "info")
+                  systemConsole.info.apply(this, args)
+                },
+                warn: function(){
+                  let args = Array.from(arguments)
+                  pushToConsole(args, "warn")
+                  systemConsole.warn.apply(this, args)
+                },
+                error: function(){
+                  let args = Array.from(arguments)
+                  pushToConsole(args, "error")
+                  systemConsole.error.apply(this, args)
+                },
+                system: function(){
+                  let args = Array.from(arguments)
+                  pushToConsole(args, "system")
+                }
+              }
+            }(window.console))
+            window.console = console
+            console.system("Running fiddle")
+          }
+          if (window.parent){
+            customConsole(window)
+          }
+        </script>
+
+  <!-- end code from 'index12.html' -->
+
+</head>
+
+<body id="page-top" onload="format()">
+  <!-- navigation bar in the following div is based on https://www.w3schools.com/howto/howto_js_topnav_responsive.asp -->
+  <div class="topnav" id="myTopnav">
+    <a class="js-scroll-trigger" href="#home" class="active">THE SARCOMETER</a>
+    <a class="js-scroll-trigger other" href="https://www.thesarcometer.com">Home</a>
+    <a class="js-scroll-trigger other" href="https://www.thesarcometer.com/about">About</a>
+    <a href="https://www.thesarcometer.com/contact">Contact</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+
+
+
+
+  <!-- Header -->
+  <header class="bg-primary text-white">
+    <div class="container text-center">
+     <!-- <h1>Welcome to Scrolling Nav</h1> -->
+     <br>
+     <br>
+     <br>
+      <p class="lead" style="margin-top:-50px;">Machine learning for detecting sarcastic Tweets</p>
+    </div>
+  </header>
+  <!-- End Header -->
+
+  <!-- Duplicate 'about' section for pasting in content from 'index12.htm' if needed-->
+ <!-- <section id="about">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+         <!-- <h2>About this page</h2> -->
+          <!-- content from 'index12.html' -->
+
+          <style>
+    .center_chart {
+      margin: 0;
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+    </style>
+    <!-- end css code for vertical and horizontal centering of the celebrity usernames ...
+    ...horizontal barchart - source:https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_center-vertical2 -->
+
+<!-- reference for .chart-container:https://stackoverflow.com/questions/37621020/setting-width-and-height -->
+<style>
+.chart-container {
+    /*width: 750px; /*original value */
+    width: 1000px; /* test value */
+    /* height: 600px; */
+    margin: 0 auto;
+}
+</style>
+
+<div class="chart-container container">
+        <br>
+        <br>
+
+    <!--    <canvas id="myChart" width="750" height="400"> </canvas>  --> <!--original value-->
+        <canvas id="myChart" width="1000" height="400"> </canvas> <!-- test value -->
+        <!-- the below line of code required for the celebrity usernames horizontal barchart -->
+        <script   src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+        <!-- the below line of code required for the celebrity usernames horizontal barchart -->
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js'></script>
+
+</div>
+    <!-- JavaScript for the celebrity usernames horizontal barchart -->
+    <script type="text/javascript">
+    //Create horizontalBar plug-in for ChartJS
+    //This code is pasted in from 'horizontalBarPlugin.js'
+    var originalLineDraw = Chart.controllers.horizontalBar.prototype.draw;
+    Chart.helpers.extend(Chart.controllers.horizontalBar.prototype, {
+
+        draw: function () {
+            originalLineDraw.apply(this, arguments);
+
+            var chart = this.chart;
+            var ctx = chart.chart.ctx;
+
+            var index = chart.config.options.lineAtIndex;
+            if (index) {
+
+                var xaxis = chart.scales['x-axis-0'];
+                var yaxis = chart.scales['y-axis-0'];
+
+                var x1 = xaxis.getPixelForValue(index);
+                var y1 = 0;
+
+                var x2 = xaxis.getPixelForValue(index);
+                var y2 = yaxis.height;
+
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.strokeStyle = 'red';
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+                ctx.restore();
+
+                ctx.font = '16px Arial'
+                ctx.fillStyle = "#ff0000";
+                ctx.fillText(" Average Score", x2-120, y2-160);
+            }
+        }
+    });
+         </script>
+    <script type="text/javascript">
+    //Build the chart
+    // pasted from BuildChart.js
+    (function() {
+      var data = {
+    //     labels: ["January", "February", "March", "April", "May", "June", "July"],
+    //        labels: [{{bar_labels|safe}}],
+            labels: [
+                {% for item in bar_labels %}
+                "{{ item|safe }}",
+                {% endfor %}
+                    ],
+          datasets: [
+              {
+                  label: "Average Score",
+                  backgroundColor: [],
+                  borderColor: [],
+                  borderWidth: 1,
+            //    data: [65.0, 59.0, 80.0, 81.0, 56.0, 55.0, 40.0],
+            //      data: [{{bar_values|safe}}],
+                    data : [
+                        {% for item in bar_values %}
+                        "{{ item|safe }}",
+                        {% endfor %}
+                            ],
+              }
+          ]
+      };
+
+      // Obtain the index of the selected value
+      selected = -1
+      for (i = 0; i < 4; i++) {
+        if (data.labels[i] != '@DarthVader' && data.labels[i] != '@BarackObama' && data.labels[i] != '@katyperry'){
+          selected = i
+        }
+      }
+
+      // Manipulate colors based on selected
+      for (i = 0; i < 4; i++) {
+        if (i == selected){
+          data.datasets[0].backgroundColor[i] = 'rgba(255, 99, 132, 0.2)'
+          data.datasets[0].borderColor[i] = 'rgba(255,99,132,1)'
+        } else {
+          data.datasets[0].backgroundColor[i] = 'rgba(54, 162, 235, 0.2)'
+          data.datasets[0].borderColor[i] = 'rgba(54, 162, 235, 1)'
+        }
+      }
+
+
+      //Load Chart
+      var ctx = $("#myChart");
+      var myBarChart = new Chart(ctx, {
+          type: 'horizontalBar',
+          data: data,
+          options: {
+              //Set the index of the value where you want to draw the line
+              lineAtIndex:{{ave_username_score}},
+              legend: {
+                display: false},
+                scales: {
+            yAxes: [{
+                    ticks: {
+                    fontSize: 16,
+                //not working:    min: 80,
+                //not working:    max: 90
+                // not working: beginAtZero: true
+                }
+            }],
+            xAxes: [{
+                scaleLabel: {
+                    fontSize: 16,
+                    display: true,
+                    labelString: 'Average Username Sarcasm Probability'
+                            },
+                ticks: {
+                    fontSize: 16,
+                //not working:    min: 80,
+                //not working:    max: 90
+                suggestedMax: 45,
+                beginAtZero: true
+                }
+            }]
+        }
+          }
+      });
+
+    })();
+         </script>
+</div>
+<!-- end code for the celebrity usernames horizontal barchart -->
+
+<!-- CODE FOR NOVEL USERNAME FORM -->
+<!-- content from 'dashboard.html' -->
+<!-- this css code block helps to position the username form -->
+<style>
+
+input[type=text] {
+  width: 400px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid red;
+  border-radius: 4px;
+  background-color: white;
+  color: black;
+}
+</style>
+<!-- end  css code for vertical and horizontal centering of the novel username...
+... form source:https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_center-vertical2 -->
+
+<!-- Container for username form, tweet barchart and carousels -->
+<div class="container">
+
+<div class="center_form row-fluid">
+    <br>
+    <br>
+
+<form method="post" action="{{ url_for('test7') }}">
+
+<input name="novel_username" id="novel_username" class="span4 offset4" type="text" placeholder="Enter a Twitter username here starting with the @">
+<br>
+<center>
+<p><input type="submit" value="Submit"></p>
+</center>
+</div>
+
+<!-- BEGIN CAROUSEL CODE, source: http://jsfiddle.net/SchmalzyB/w8EG9/7/ -->
+<!-- <style>
+    .center_new_carousel {
+      margin: 0;
+      position: absolute;
+      top: 90%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      height: 150px;
+        width: 500px;
+        }
+    </style> -->
+    <!-- end css code for vertical and horizontal centering of the barchart carousel - source:https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_center-vertical2 -->
+       <!-- html code block for the carousel -->
+<!-- <div class="center_new_carousel"> -->
+    <div class="container"></div>
+    <br>
+    <br>
+
+<div class="wrap" id="bottom">
+    <div id="myCarousel1" class="carousel slide" data-interval="false">
+      <!-- Carousel items -->
+      <div class="carousel-inner">
+        <div class="item active">
+            <!--<img src="http://placehold.it/350x150">-->
+            <!-- CONTENT FROM INDEX10.HTML FOR TWEET SCORE BARCHART -->
+            <!--<div class="slide slide1 showing"> -->
+                <!--    <div class="center_chart2"> -->
+                            <canvas id="myChart2" width="400" height="150"> </canvas>
+                            <!-- the below line of code required for the horizontal barchart -->
+                            <script   src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+                            <!-- the below line of code required for the horizontal barchart -->
+                            <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js'></script>
+
+                <!--    </div> -->
+                        <!-- JavaScript for the second horizontal barchart -->
+                        <script type="text/javascript">
+                        //Create horizontalBar plug-in for ChartJS
+                        //This code is pasted in from 'horizontalBarPlugin.js'
+                        var originalLineDraw = Chart.controllers.horizontalBar.prototype.draw;
+                        Chart.helpers.extend(Chart.controllers.horizontalBar.prototype, {
+
+                            draw: function () {
+                                originalLineDraw.apply(this, arguments);
+
+                                var chart = this.chart;
+                                var ctx = chart.chart.ctx;
+
+                                var index = chart.config.options.lineAtIndex;
+                                if (index) {
+
+                                    var xaxis = chart.scales['x-axis-0'];
+                                    var yaxis = chart.scales['y-axis-0'];
+
+                                    var x1 = xaxis.getPixelForValue(index);
+                                    var y1 = 0;
+
+                                    var x2 = xaxis.getPixelForValue(index);
+                                    var y2 = yaxis.height;
+
+                                    ctx.save();
+                                    ctx.beginPath();
+                                    ctx.moveTo(x1, y1);
+                                    ctx.strokeStyle = 'red';
+                                    ctx.lineTo(x2, y2);
+                                    ctx.stroke();
+                                    ctx.restore();
+
+                                    ctx.font = '16px Arial'
+                                    ctx.fillStyle = "#ff0000";
+                                    ctx.fillText("Average Score", x2, y2-250);
+                                }
+                            }
+                        });
+                             </script>
+                        <script type="text/javascript">
+                        //Build the chart
+                        // pasted from BuildChart.js
+                        (function() {
+                          var data = {
+                             labels: ["Current Tweet"],//, "February", "March", "April", "May", "June", "July"],
+                        //        labels: [{{bar_labels|safe}}],
+                        //        labels: [
+                        //            {% for item in bar_labels %}
+                        //            "{{ item|safe }}",
+                        //            {% endfor %}
+                        //                ],
+                              datasets: [
+                                  {
+                                    //  label: "Average Score",
+                                      backgroundColor: [
+                                          'rgba(255, 99, 132, 0.2)'],    //red
+                                    //      'rgba(54, 162, 235, 0.2)',    // light blue
+                                    //      'rgba(54, 162, 235, 0.2)',    // light blue
+                                    //      'rgba(54, 162, 235, 0.2)'    // light blue
+                                    //      'rgba(255, 206, 86, 0.2)',    // yellow
+                                    //      'rgba(75, 192, 192, 0.2)',    // green
+                                    //      'rgba(153, 102, 255, 0.2)',
+                                    //      'rgba(255, 159, 64, 0.2)'
+                                    //  ],
+                                      borderColor: [
+                                          'rgba(255,99,132,1)'],         //red
+                                    //      'rgba(54, 162, 235, 1)',      // light blue
+                                    //      'rgba(54, 162, 235, 1)',      // light blue
+                                    //      'rgba(54, 162, 235, 1)'      // light blue
+                                    //      'rgba(255, 206, 86, 1)',      //yellow
+                                    //      'rgba(75, 192, 192, 1)'      // green
+                                    //      'rgba(153, 102, 255, 1)',
+                                    //      'rgba(255, 159, 64, 1)'
+                                    //  ],
+                                      borderWidth: 1,
+                                //      data: [75.0],
+                                    data: [{{ prob_sarc2_0|safe }}],//[65.0, 59.0, 80.0, 81.0, 56.0, 55.0, 40.0],
+                                //      data: [{{bar_values|safe}}],
+                                //        data : [
+                                //            {% for item in bar_values %}
+                                //          "{{ item|safe }}",
+                                //            {% endfor %}
+                                //                ],
+                                  }
+                              ]
+                          };
+                          //Load Chart
+                          var ctx = $("#myChart2"); // how do we get the other charts such as  'MyChart3' loaded? What calls this function??
+                          var myBarChart = new Chart(ctx, {
+                              type: 'horizontalBar',
+                              data: data,
+                              options: {
+                                  //Set the index of the value where you want to draw the line
+                                  //lineAtIndex:{{ave_username_score}},
+                                  legend: {
+                                    display: false},
+                                    scales: {
+                                yAxes: [{
+                                        ticks: {
+                                        fontSize: 16,
+                                    //not working:    min: 80,
+                                    //not working:    max: 90
+                                    // not working: beginAtZero: true
+                                    }
+                                }],
+                                xAxes: [{
+                                    scaleLabel: {
+                                        fontSize: 16,
+                                        display: true,
+                                        labelString: 'Sarcasm Probability'
+                                                },
+                                    ticks: {
+                                        fontSize: 16,
+                                    //not working:    min: 80,
+                                    //not working:    max: 90
+                                    beginAtZero: true
+                                    }
+                                }]
+                            }
+                              }
+                          });
+
+                        })();
+                             </script>
+            <!--    </div> -->
+            <!-- END CONTENT FROM INDEX10.HTML FOR TWEET SCORE BARCHART -->
+        </div>
+        <div class="item">
+            <!--<img src="http://placehold.it/350x150">-->
+            <!-- CONTENT FROM INDEX10.HTML FOR TWEET SCORE BARCHART -->
+            <!--<div class="slide slide1 showing"> -->
+                <!--    <div class="center_chart2"> -->
+                            <canvas id="myChart3" width="400" height="150"> </canvas>
+                            <!-- the below line of code required for the horizontal barchart -->
+                            <script   src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+                            <!-- the below line of code required for the horizontal barchart -->
+                            <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js'></script>
+
+                <!--    </div> -->
+                        <!-- JavaScript for the second horizontal barchart -->
+                        <script type="text/javascript">
+                        //Create horizontalBar plug-in for ChartJS
+                        //This code is pasted in from 'horizontalBarPlugin.js'
+                        var originalLineDraw = Chart.controllers.horizontalBar.prototype.draw;
+                        Chart.helpers.extend(Chart.controllers.horizontalBar.prototype, {
+
+                            draw: function () {
+                                originalLineDraw.apply(this, arguments);
+
+                                var chart = this.chart;
+                                var ctx = chart.chart.ctx;
+
+                                var index = chart.config.options.lineAtIndex;
+                                if (index) {
+
+                                    var xaxis = chart.scales['x-axis-0'];
+                                    var yaxis = chart.scales['y-axis-0'];
+
+                                    var x1 = xaxis.getPixelForValue(index);
+                                    var y1 = 0;
+
+                                    var x2 = xaxis.getPixelForValue(index);
+                                    var y2 = yaxis.height;
+
+                                    ctx.save();
+                                    ctx.beginPath();
+                                    ctx.moveTo(x1, y1);
+                                    ctx.strokeStyle = 'red';
+                                    ctx.lineTo(x2, y2);
+                                    ctx.stroke();
+                                    ctx.restore();
+
+                                    ctx.font = '16px Arial'
+                                    ctx.fillStyle = "#ff0000";
+                                    ctx.fillText("Average Score", x2, y2-250);
+                                }
+                            }
+                        });
+                             </script>
+                        <script type="text/javascript">
+                        //Build the chart
+                        // pasted from BuildChart.js
+                        (function() {
+                          var data = {
+                             labels: ["Current Tweet"],//, "February", "March", "April", "May", "June", "July"],
+                        //        labels: [{{bar_labels|safe}}],
+                        //        labels: [
+                        //            {% for item in bar_labels %}
+                        //            "{{ item|safe }}",
+                        //            {% endfor %}
+                        //                ],
+                              datasets: [
+                                  {
+                                    //  label: "Average Score",
+                                      backgroundColor: [
+                                          'rgba(255, 99, 132, 0.2)'],    //red
+                                    //      'rgba(54, 162, 235, 0.2)',    // light blue
+                                    //      'rgba(54, 162, 235, 0.2)',    // light blue
+                                    //      'rgba(54, 162, 235, 0.2)'    // light blue
+                                    //      'rgba(255, 206, 86, 0.2)',    // yellow
+                                    //      'rgba(75, 192, 192, 0.2)',    // green
+                                    //      'rgba(153, 102, 255, 0.2)',
+                                    //      'rgba(255, 159, 64, 0.2)'
+                                    //  ],
+                                      borderColor: [
+                                          'rgba(255,99,132,1)'],         //red
+                                    //      'rgba(54, 162, 235, 1)',      // light blue
+                                    //      'rgba(54, 162, 235, 1)',      // light blue
+                                    //      'rgba(54, 162, 235, 1)'      // light blue
+                                    //      'rgba(255, 206, 86, 1)',      //yellow
+                                    //      'rgba(75, 192, 192, 1)'      // green
+                                    //      'rgba(153, 102, 255, 1)',
+                                    //      'rgba(255, 159, 64, 1)'
+                                    //  ],
+                                      borderWidth: 1,
+                                //      data: [75.0],
+                                    data: [{{ prob_sarc2_1|safe }}],//[65.0, 59.0, 80.0, 81.0, 56.0, 55.0, 40.0],
+                                //      data: [{{bar_values|safe}}],
+                                //        data : [
+                                //            {% for item in bar_values %}
+                                //          "{{ item|safe }}",
+                                //            {% endfor %}
+                                //                ],
+                                  }
+                              ]
+                          };
+                          //Load Chart
+                          var ctx = $("#myChart3"); // how do we get the other charts such as  'MyChart3' loaded? What calls this function??
+                          var myBarChart = new Chart(ctx, {
+                              type: 'horizontalBar',
+                              data: data,
+                              options: {
+                                  //Set the index of the value where you want to draw the line
+                                  //lineAtIndex:{{ave_username_score}},
+                                  legend: {
+                                    display: false},
+                                    scales: {
+                                yAxes: [{
+                                        ticks: {
+                                        fontSize: 16,
+                                    //not working:    min: 80,
+                                    //not working:    max: 90
+                                    // not working: beginAtZero: true
+                                    }
+                                }],
+                                xAxes: [{
+                                    scaleLabel: {
+                                        fontSize: 16,
+                                        display: true,
+                                        labelString: 'Sarcasm Probability'
+                                                },
+                                    ticks: {
+                                        fontSize: 16,
+                                    //not working:    min: 80,
+                                    //not working:    max: 90
+                                    beginAtZero: true
+                                    }
+                                }]
+                            }
+                              }
+                          });
+
+                        })();
+                             </script>
+            <!--    </div> -->
+            <!-- END CONTENT FROM INDEX10.HTML FOR TWEET SCORE BARCHART -->
+        </div>
+        <div class="item">
+            <!--<img src="http://placehold.it/350x150">-->
+            <!-- CONTENT FROM INDEX10.HTML FOR TWEET SCORE BARCHART -->
+            <!--<div class="slide slide1 showing"> -->
+                <!--    <div class="center_chart2"> -->
+                            <canvas id="myChart4" width="400" height="150"> </canvas>
+                            <!-- the below line of code required for the horizontal barchart -->
+                            <script   src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+                            <!-- the below line of code required for the horizontal barchart -->
+                            <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js'></script>
+
+                <!--    </div> -->
+                        <!-- JavaScript for the second horizontal barchart -->
+                        <script type="text/javascript">
+                        //Create horizontalBar plug-in for ChartJS
+                        //This code is pasted in from 'horizontalBarPlugin.js'
+                        var originalLineDraw = Chart.controllers.horizontalBar.prototype.draw;
+                        Chart.helpers.extend(Chart.controllers.horizontalBar.prototype, {
+
+                            draw: function () {
+                                originalLineDraw.apply(this, arguments);
+
+                                var chart = this.chart;
+                                var ctx = chart.chart.ctx;
+
+                                var index = chart.config.options.lineAtIndex;
+                                if (index) {
+
+                                    var xaxis = chart.scales['x-axis-0'];
+                                    var yaxis = chart.scales['y-axis-0'];
+
+                                    var x1 = xaxis.getPixelForValue(index);
+                                    var y1 = 0;
+
+                                    var x2 = xaxis.getPixelForValue(index);
+                                    var y2 = yaxis.height;
+
+                                    ctx.save();
+                                    ctx.beginPath();
+                                    ctx.moveTo(x1, y1);
+                                    ctx.strokeStyle = 'red';
+                                    ctx.lineTo(x2, y2);
+                                    ctx.stroke();
+                                    ctx.restore();
+
+                                    ctx.font = '16px Arial'
+                                    ctx.fillStyle = "#ff0000";
+                                    ctx.fillText("Average Score", x2, y2-250);
+                                }
+                            }
+                        });
+                             </script>
+                        <script type="text/javascript">
+                        //Build the chart
+                        // pasted from BuildChart.js
+                        (function() {
+                          var data = {
+                             labels: ["Current Tweet"],//, "February", "March", "April", "May", "June", "July"],
+                        //        labels: [{{bar_labels|safe}}],
+                        //        labels: [
+                        //            {% for item in bar_labels %}
+                        //            "{{ item|safe }}",
+                        //            {% endfor %}
+                        //                ],
+                              datasets: [
+                                  {
+                                    //  label: "Average Score",
+                                      backgroundColor: [
+                                          'rgba(255, 99, 132, 0.2)'],    //red
+                                    //      'rgba(54, 162, 235, 0.2)',    // light blue
+                                    //      'rgba(54, 162, 235, 0.2)',    // light blue
+                                    //      'rgba(54, 162, 235, 0.2)'    // light blue
+                                    //      'rgba(255, 206, 86, 0.2)',    // yellow
+                                    //      'rgba(75, 192, 192, 0.2)',    // green
+                                    //      'rgba(153, 102, 255, 0.2)',
+                                    //      'rgba(255, 159, 64, 0.2)'
+                                    //  ],
+                                      borderColor: [
+                                          'rgba(255,99,132,1)'],         //red
+                                    //      'rgba(54, 162, 235, 1)',      // light blue
+                                    //      'rgba(54, 162, 235, 1)',      // light blue
+                                    //      'rgba(54, 162, 235, 1)'      // light blue
+                                    //      'rgba(255, 206, 86, 1)',      //yellow
+                                    //      'rgba(75, 192, 192, 1)'      // green
+                                    //      'rgba(153, 102, 255, 1)',
+                                    //      'rgba(255, 159, 64, 1)'
+                                    //  ],
+                                      borderWidth: 1,
+                                //      data: [75.0],
+                                    data: [{{ prob_sarc2_2|safe }}],//[65.0, 59.0, 80.0, 81.0, 56.0, 55.0, 40.0],
+                                //      data: [{{bar_values|safe}}],
+                                //        data : [
+                                //            {% for item in bar_values %}
+                                //          "{{ item|safe }}",
+                                //            {% endfor %}
+                                //                ],
+                                  }
+                              ]
+                          };
+                          //Load Chart
+                          var ctx = $("#myChart4"); // how do we get the other charts such as  'MyChart3' loaded? What calls this function??
+                          var myBarChart = new Chart(ctx, {
+                              type: 'horizontalBar',
+                              data: data,
+                              options: {
+                                  //Set the index of the value where you want to draw the line
+                                  //lineAtIndex:{{ave_username_score}},
+                                  legend: {
+                                    display: false},
+                                    scales: {
+                                yAxes: [{
+                                        ticks: {
+                                        fontSize: 16,
+                                    //not working:    min: 80,
+                                    //not working:    max: 90
+                                    // not working: beginAtZero: true
+                                    }
+                                }],
+                                xAxes: [{
+                                    scaleLabel: {
+                                        fontSize: 16,
+                                        display: true,
+                                        labelString: 'Sarcasm Probability'
+                                                },
+                                    ticks: {
+                                        fontSize: 16,
+                                    //not working:    min: 80,
+                                    //not working:    max: 90
+                                    beginAtZero: true
+                                    }
+                                }]
+                            }
+                              }
+                          });
+
+                        })();
+                             </script>
+            <!--    </div> -->
+            <!-- END CONTENT FROM INDEX10.HTML FOR TWEET SCORE BARCHART -->
+        </div>
+        <div class="item">
+            <!--<img src="http://placehold.it/350x150">-->
+            <!-- CONTENT FROM INDEX10.HTML FOR TWEET SCORE BARCHART -->
+            <!--<div class="slide slide1 showing"> -->
+                <!--    <div class="center_chart2"> -->
+                            <canvas id="myChart5" width="400" height="150"> </canvas>
+                            <!-- the below line of code required for the horizontal barchart -->
+                            <script   src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+                            <!-- the below line of code required for the horizontal barchart -->
+                            <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js'></script>
+
+                <!--    </div> -->
+                        <!-- JavaScript for the second horizontal barchart -->
+                        <script type="text/javascript">
+                        //Create horizontalBar plug-in for ChartJS
+                        //This code is pasted in from 'horizontalBarPlugin.js'
+                        var originalLineDraw = Chart.controllers.horizontalBar.prototype.draw;
+                        Chart.helpers.extend(Chart.controllers.horizontalBar.prototype, {
+
+                            draw: function () {
+                                originalLineDraw.apply(this, arguments);
+
+                                var chart = this.chart;
+                                var ctx = chart.chart.ctx;
+
+                                var index = chart.config.options.lineAtIndex;
+                                if (index) {
+
+                                    var xaxis = chart.scales['x-axis-0'];
+                                    var yaxis = chart.scales['y-axis-0'];
+
+                                    var x1 = xaxis.getPixelForValue(index);
+                                    var y1 = 0;
+
+                                    var x2 = xaxis.getPixelForValue(index);
+                                    var y2 = yaxis.height;
+
+                                    ctx.save();
+                                    ctx.beginPath();
+                                    ctx.moveTo(x1, y1);
+                                    ctx.strokeStyle = 'red';
+                                    ctx.lineTo(x2, y2);
+                                    ctx.stroke();
+                                    ctx.restore();
+
+                                    ctx.font = '16px Arial'
+                                    ctx.fillStyle = "#ff0000";
+                                    ctx.fillText("Average Score", x2, y2-250);
+                                }
+                            }
+                        });
+                             </script>
+                        <script type="text/javascript">
+                        //Build the chart
+                        // pasted from BuildChart.js
+                        (function() {
+                          var data = {
+                             labels: ["Current Tweet"],//, "February", "March", "April", "May", "June", "July"],
+                        //        labels: [{{bar_labels|safe}}],
+                        //        labels: [
+                        //            {% for item in bar_labels %}
+                        //            "{{ item|safe }}",
+                        //            {% endfor %}
+                        //                ],
+                              datasets: [
+                                  {
+                                    //  label: "Average Score",
+                                      backgroundColor: [
+                                          'rgba(255, 99, 132, 0.2)'],    //red
+                                    //      'rgba(54, 162, 235, 0.2)',    // light blue
+                                    //      'rgba(54, 162, 235, 0.2)',    // light blue
+                                    //      'rgba(54, 162, 235, 0.2)'    // light blue
+                                    //      'rgba(255, 206, 86, 0.2)',    // yellow
+                                    //      'rgba(75, 192, 192, 0.2)',    // green
+                                    //      'rgba(153, 102, 255, 0.2)',
+                                    //      'rgba(255, 159, 64, 0.2)'
+                                    //  ],
+                                      borderColor: [
+                                          'rgba(255,99,132,1)'],         //red
+                                    //      'rgba(54, 162, 235, 1)',      // light blue
+                                    //      'rgba(54, 162, 235, 1)',      // light blue
+                                    //      'rgba(54, 162, 235, 1)'      // light blue
+                                    //      'rgba(255, 206, 86, 1)',      //yellow
+                                    //      'rgba(75, 192, 192, 1)'      // green
+                                    //      'rgba(153, 102, 255, 1)',
+                                    //      'rgba(255, 159, 64, 1)'
+                                    //  ],
+                                      borderWidth: 1,
+                                //      data: [75.0],
+                                    data: [{{ prob_sarc2_3|safe }}],//[65.0, 59.0, 80.0, 81.0, 56.0, 55.0, 40.0],
+                                //      data: [{{bar_values|safe}}],
+                                //        data : [
+                                //            {% for item in bar_values %}
+                                //          "{{ item|safe }}",
+                                //            {% endfor %}
+                                //                ],
+                                  }
+                              ]
+                          };
+                          //Load Chart
+                          var ctx = $("#myChart5"); // how do we get the other charts such as  'MyChart3' loaded? What calls this function??
+                          var myBarChart = new Chart(ctx, {
+                              type: 'horizontalBar',
+                              data: data,
+                              options: {
+                                  //Set the index of the value where you want to draw the line
+                                  //lineAtIndex:{{ave_username_score}},
+                                  legend: {
+                                    display: false},
+                                    scales: {
+                                yAxes: [{
+                                        ticks: {
+                                        fontSize: 16,
+                                    //not working:    min: 80,
+                                    //not working:    max: 90
+                                    // not working: beginAtZero: true
+                                    }
+                                }],
+                                xAxes: [{
+                                    scaleLabel: {
+                                        fontSize: 16,
+                                        display: true,
+                                        labelString: 'Sarcasm Probability'
+                                                },
+                                    ticks: {
+                                        fontSize: 16,
+                                    //not working:    min: 80,
+                                    //not working:    max: 90
+                                    beginAtZero: true
+                                    }
+                                }]
+                            }
+                              }
+                          });
+
+                        })();
+                             </script>
+            <!--    </div> -->
+            <!-- END CONTENT FROM INDEX10.HTML FOR TWEET SCORE BARCHART -->
+        </div>
+        <div class="item">
+            <!--<img src="http://placehold.it/350x150">-->
+            <!-- CONTENT FROM INDEX10.HTML FOR TWEET SCORE BARCHART -->
+            <!--<div class="slide slide1 showing"> -->
+                <!--    <div class="center_chart2"> -->
+                            <canvas id="myChart6" width="400" height="150"> </canvas>
+                            <!-- the below line of code required for the horizontal barchart -->
+                            <script   src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+                            <!-- the below line of code required for the horizontal barchart -->
+                            <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js'></script>
+
+                <!--    </div> -->
+                        <!-- JavaScript for the second horizontal barchart -->
+                        <script type="text/javascript">
+                        //Create horizontalBar plug-in for ChartJS
+                        //This code is pasted in from 'horizontalBarPlugin.js'
+                        var originalLineDraw = Chart.controllers.horizontalBar.prototype.draw;
+                        Chart.helpers.extend(Chart.controllers.horizontalBar.prototype, {
+
+                            draw: function () {
+                                originalLineDraw.apply(this, arguments);
+
+                                var chart = this.chart;
+                                var ctx = chart.chart.ctx;
+
+                                var index = chart.config.options.lineAtIndex;
+                                if (index) {
+
+                                    var xaxis = chart.scales['x-axis-0'];
+                                    var yaxis = chart.scales['y-axis-0'];
+
+                                    var x1 = xaxis.getPixelForValue(index);
+                                    var y1 = 0;
+
+                                    var x2 = xaxis.getPixelForValue(index);
+                                    var y2 = yaxis.height;
+
+                                    ctx.save();
+                                    ctx.beginPath();
+                                    ctx.moveTo(x1, y1);
+                                    ctx.strokeStyle = 'red';
+                                    ctx.lineTo(x2, y2);
+                                    ctx.stroke();
+                                    ctx.restore();
+
+                                    ctx.font = '16px Arial'
+                                    ctx.fillStyle = "#ff0000";
+                                    ctx.fillText("Average Score", x2, y2-250);
+                                }
+                            }
+                        });
+                             </script>
+                        <script type="text/javascript">
+                        //Build the chart
+                        // pasted from BuildChart.js
+                        (function() {
+                          var data = {
+                             labels: ["Current Tweet"],//, "February", "March", "April", "May", "June", "July"],
+                        //        labels: [{{bar_labels|safe}}],
+                        //        labels: [
+                        //            {% for item in bar_labels %}
+                        //            "{{ item|safe }}",
+                        //            {% endfor %}
+                        //                ],
+                              datasets: [
+                                  {
+                                    //  label: "Average Score",
+                                      backgroundColor: [
+                                          'rgba(255, 99, 132, 0.2)'],    //red
+                                    //      'rgba(54, 162, 235, 0.2)',    // light blue
+                                    //      'rgba(54, 162, 235, 0.2)',    // light blue
+                                    //      'rgba(54, 162, 235, 0.2)'    // light blue
+                                    //      'rgba(255, 206, 86, 0.2)',    // yellow
+                                    //      'rgba(75, 192, 192, 0.2)',    // green
+                                    //      'rgba(153, 102, 255, 0.2)',
+                                    //      'rgba(255, 159, 64, 0.2)'
+                                    //  ],
+                                      borderColor: [
+                                          'rgba(255,99,132,1)'],         //red
+                                    //      'rgba(54, 162, 235, 1)',      // light blue
+                                    //      'rgba(54, 162, 235, 1)',      // light blue
+                                    //      'rgba(54, 162, 235, 1)'      // light blue
+                                    //      'rgba(255, 206, 86, 1)',      //yellow
+                                    //      'rgba(75, 192, 192, 1)'      // green
+                                    //      'rgba(153, 102, 255, 1)',
+                                    //      'rgba(255, 159, 64, 1)'
+                                    //  ],
+                                      borderWidth: 1,
+                                //      data: [75.0],
+                                    data: [{{ prob_sarc2_4|safe }}],//[65.0, 59.0, 80.0, 81.0, 56.0, 55.0, 40.0],
+                                //      data: [{{bar_values|safe}}],
+                                //        data : [
+                                //            {% for item in bar_values %}
+                                //          "{{ item|safe }}",
+                                //            {% endfor %}
+                                //                ],
+                                  }
+                              ]
+                          };
+                          //Load Chart
+                          var ctx = $("#myChart6"); // how do we get the other charts such as  'MyChart3' loaded? What calls this function??
+                          var myBarChart = new Chart(ctx, {
+                              type: 'horizontalBar',
+                              data: data,
+                              options: {
+                                  //Set the index of the value where you want to draw the line
+                                  //lineAtIndex:{{ave_username_score}},
+                                  legend: {
+                                    display: false},
+                                    scales: {
+                                yAxes: [{
+                                        ticks: {
+                                        fontSize: 16,
+                                    //not working:    min: 80,
+                                    //not working:    max: 90
+                                    // not working: beginAtZero: true
+                                    }
+                                }],
+                                xAxes: [{
+                                    scaleLabel: {
+                                        fontSize: 16,
+                                        display: true,
+                                        labelString: 'Sarcasm Probability'
+                                                },
+                                    ticks: {
+                                        fontSize: 16,
+                                    //not working:    min: 80,
+                                    //not working:    max: 90
+                                    beginAtZero: true
+                                    }
+                                }]
+                            }
+                              }
+                          });
+
+                        })();
+                             </script>
+            <!--    </div> -->
+            <!-- END CONTENT FROM INDEX10.HTML FOR TWEET SCORE BARCHART -->
+        </div>
+      </div>
+      <!-- Carousel nav -->
+      <a class="carousel-control left" href=".carousel" data-slide="prev">‹</a>
+      <a class="carousel-control right" href=".carousel" data-slide="next">›</a>
+    </div>
+<!-- CAROUSEL 2 -->
+    <div id="myCarousel2" class="carousel slide" data-interval="false">
+      <!-- Carousel items -->
+      <div class="carousel-inner">
+        <div class="item active">
+            <!--<img src="http://placehold.it/350x150">-->
+            <blockquote class="twitter-tweet"><a href="https://twitter.com/x/status/{{most_sarcastic_id0}}"></a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+        <div class="item">
+            <!--<img src="http://placehold.it/350x150">-->
+            <blockquote class="twitter-tweet"><a href="https://twitter.com/x/status/{{most_sarcastic_id1}}"></a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+        <div class="item">
+            <!--<img src="http://placehold.it/350x150">-->
+            <blockquote class="twitter-tweet"><a href="https://twitter.com/x/status/{{most_sarcastic_id2}}"></a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+        <div class="item">
+            <!--<img src="http://placehold.it/350x150">-->
+            <blockquote class="twitter-tweet"><a href="https://twitter.com/x/status/{{most_sarcastic_id3}}"></a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+        <div class="item">
+            <!--<img src="http://placehold.it/350x150">-->
+            <blockquote class="twitter-tweet"><a href="https://twitter.com/x/status/{{most_sarcastic_id4}}"></a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+      </div>
+    </div>
+
+<!-- CAROUSEL 3 -->
+<div id="myCarousel3" class="carousel slide" data-interval="false">
+      <!-- Carousel items -->
+      <div class="carousel-inner">
+        <div class="item active">
+            <!--<img src="http://placehold.it/350x150">-->
+            <!-- CONTENT FROM INDEX10.HTML FOR TWEET SCORE BARCHART -->
+            <!--<div class="slide slide1 showing"> -->
+                <!--    <div class="center_chart2"> -->
+                            <canvas id="myChart7" width="400" height="300"> </canvas> <!--original height='150'-->
+                            <!-- the below line of code required for the horizontal barchart -->
+                            <script   src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+                            <!-- the below line of code required for the horizontal barchart -->
+                            <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js'></script>
+
+                <!--    </div> -->
+                        <!-- JavaScript for the second horizontal barchart -->
+                        <script type="text/javascript">
+                        //Create horizontalBar plug-in for ChartJS
+                        //This code is pasted in from 'horizontalBarPlugin.js'
+                        var originalLineDraw = Chart.controllers.horizontalBar.prototype.draw;
+                        Chart.helpers.extend(Chart.controllers.horizontalBar.prototype, {
+
+                            draw: function () {
+                                originalLineDraw.apply(this, arguments);
+
+                                var chart = this.chart;
+                                var ctx = chart.chart.ctx;
+
+                                var index = chart.config.options.lineAtIndex;
+                                if (index) {
+
+                                    var xaxis = chart.scales['x-axis-0'];
+                                    var yaxis = chart.scales['y-axis-0'];
+
+                                    var x1 = xaxis.getPixelForValue(index);
+                                    var y1 = 0;
+
+                                    var x2 = xaxis.getPixelForValue(index);
+                                    var y2 = yaxis.height;
+
+                                    ctx.save();
+                                    ctx.beginPath();
+                                    ctx.moveTo(x1, y1);
+                                    ctx.strokeStyle = 'red';
+                                    ctx.lineTo(x2, y2);
+                                    ctx.stroke();
+                                    ctx.restore();
+
+                                    ctx.font = '16px Arial'
+                                    ctx.fillStyle = "#ff0000";
+                                    ctx.fillText("Average Score", x2, y2-250);
+                                }
+                            }
+                        });
+                             </script>
+                        <script type="text/javascript">
+                        //Build the chart
+                        // pasted from BuildChart.js
+                        (function() {
+                          var data = {
+                        //           labels: [ "February", "March", "April", "May", "June"],
+                        //     labels: ["Current Tweet"],//, "February", "March", "April", "May", "June", "July"],
+                        //        labels: [{{bar_labels|safe}}],
+                                labels: [
+                                    {% for item in car_labels0 %}
+                                    "{{ item|safe }}",
+                                    {% endfor %}
+                                        ],
+                              datasets: [
+                                  {
+                                    //  label: "Average Score",
+                                      backgroundColor: [
+                                          'rgba(255, 99, 132, 0.2)',    //red
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                    //      'rgba(255, 206, 86, 0.2)',    // yellow
+                                    //      'rgba(75, 192, 192, 0.2)',    // green
+                                    //      'rgba(153, 102, 255, 0.2)',
+                                    //      'rgba(255, 159, 64, 0.2)'
+                                      ],
+                                      borderColor: [
+                                          'rgba(255,99,132,1)',         //red
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+
+                                    //      'rgba(255, 206, 86, 1)',      //yellow
+                                    //      'rgba(75, 192, 192, 1)'      // green
+                                    //      'rgba(153, 102, 255, 1)',
+                                    //      'rgba(255, 159, 64, 1)'
+                                      ],
+                                      borderWidth: 1,
+                                //      data: [75.0, 80.0, 85.0, 90.0, 95.0],
+                                //    data: [{{ prob_sarc2_0|safe }}],//[65.0, 59.0, 80.0, 81.0, 56.0, 55.0, 40.0],
+                                //      data: [{{bar_values|safe}}],
+                                        data : [
+                                            {% for item in car_values0 %}
+                                          "{{ item|safe }}",
+                                            {% endfor %}
+                                                ],
+                                  }
+                              ]
+                          };
+                          //Load Chart
+                          var ctx = $("#myChart7"); // how do we get the other charts such as  'MyChart3' loaded? What calls this function??
+                          var myBarChart = new Chart(ctx, {
+                              type: 'horizontalBar',
+                              data: data,
+                              options: {
+                                  //Set the index of the value where you want to draw the line
+                                  //lineAtIndex:{{ave_username_score}},
+                                  legend: {
+                                    display: false},
+                                    scales: {
+                                yAxes: [{
+                                        ticks: {
+                                        fontSize: 12,
+                                    //not working:    min: 80,
+                                    //not working:    max: 90
+                                    // not working: beginAtZero: true
+                                    }
+                                }],
+                                xAxes: [{
+                                    scaleLabel: {
+                                        fontSize: 16,
+                                        display: true,
+                                        labelString: 'Sarcasm Probability'
+                                                },
+                                    ticks: {
+                                        fontSize: 16,
+                                    //not working:    min: 80,
+                                    //not working:    max: 90
+                                    beginAtZero: true
+                                    }
+                                }]
+                            }
+                              }
+                          });
+
+                        })();
+                             </script>
+            <!--    </div> -->
+            <!-- END CONTENT FROM INDEX10.HTML FOR TWEET SCORE BARCHART -->
+        </div>
+        <div class="item">
+            <!--<img src="http://placehold.it/350x150">-->
+            <!-- CONTENT FROM INDEX10.HTML FOR TWEET SCORE BARCHART -->
+            <!--<div class="slide slide1 showing"> -->
+                <!--    <div class="center_chart2"> -->
+                            <canvas id="myChart8" width="400" height="300"> </canvas>
+                            <!-- the below line of code required for the horizontal barchart -->
+                            <script   src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+                            <!-- the below line of code required for the horizontal barchart -->
+                            <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js'></script>
+
+                <!--    </div> -->
+                        <!-- JavaScript for the second horizontal barchart -->
+                        <script type="text/javascript">
+                        //Create horizontalBar plug-in for ChartJS
+                        //This code is pasted in from 'horizontalBarPlugin.js'
+                        var originalLineDraw = Chart.controllers.horizontalBar.prototype.draw;
+                        Chart.helpers.extend(Chart.controllers.horizontalBar.prototype, {
+
+                            draw: function () {
+                                originalLineDraw.apply(this, arguments);
+
+                                var chart = this.chart;
+                                var ctx = chart.chart.ctx;
+
+                                var index = chart.config.options.lineAtIndex;
+                                if (index) {
+
+                                    var xaxis = chart.scales['x-axis-0'];
+                                    var yaxis = chart.scales['y-axis-0'];
+
+                                    var x1 = xaxis.getPixelForValue(index);
+                                    var y1 = 0;
+
+                                    var x2 = xaxis.getPixelForValue(index);
+                                    var y2 = yaxis.height;
+
+                                    ctx.save();
+                                    ctx.beginPath();
+                                    ctx.moveTo(x1, y1);
+                                    ctx.strokeStyle = 'red';
+                                    ctx.lineTo(x2, y2);
+                                    ctx.stroke();
+                                    ctx.restore();
+
+                                    ctx.font = '16px Arial'
+                                    ctx.fillStyle = "#ff0000";
+                                    ctx.fillText("Average Score", x2, y2-250);
+                                }
+                            }
+                        });
+                             </script>
+                        <script type="text/javascript">
+                        //Build the chart
+                        // pasted from BuildChart.js
+                        (function() {
+                          var data = {
+                              //     labels: ["Current Tweet"],//, "February", "March", "April", "May", "June", "July"],
+                              //        labels: [{{bar_labels|safe}}],
+                                      labels: [
+                                          {% for item in car_labels1 %}
+                                          "{{ item|safe }}",
+                                          {% endfor %}
+                                              ],
+                              datasets: [
+                                  {
+                                    //  label: "Average Score",
+                                      backgroundColor: [
+                                          'rgba(255, 99, 132, 0.2)',    //red
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                    //      'rgba(255, 206, 86, 0.2)',    // yellow
+                                    //      'rgba(75, 192, 192, 0.2)',    // green
+                                    //      'rgba(153, 102, 255, 0.2)',
+                                    //      'rgba(255, 159, 64, 0.2)'
+                                      ],
+                                      borderColor: [
+                                          'rgba(255,99,132,1)',         //red
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+
+                                    //      'rgba(255, 206, 86, 1)',      //yellow
+                                    //      'rgba(75, 192, 192, 1)'      // green
+                                    //      'rgba(153, 102, 255, 1)',
+                                    //      'rgba(255, 159, 64, 1)'
+                                      ],
+                                      borderWidth: 1,
+                                      //      data: [75.0, 80.0, 85.0, 90.0, 95.0],
+                                      //    data: [{{ prob_sarc2_0|safe }}],//[65.0, 59.0, 80.0, 81.0, 56.0, 55.0, 40.0],
+                                      //      data: [{{bar_values|safe}}],
+                                              data : [
+                                                  {% for item in car_values1 %}
+                                                "{{ item|safe }}",
+                                                  {% endfor %}
+                                                      ],
+                                        }
+                                    ]
+                                };
+                          //Load Chart
+                          var ctx = $("#myChart8"); // how do we get the other charts such as  'MyChart3' loaded? What calls this function??
+                          var myBarChart = new Chart(ctx, {
+                              type: 'horizontalBar',
+                              data: data,
+                              options: {
+                                  //Set the index of the value where you want to draw the line
+                                  //lineAtIndex:{{ave_username_score}},
+                                  legend: {
+                                    display: false},
+                                    scales: {
+                                yAxes: [{
+                                        ticks: {
+                                        fontSize: 12,
+                                    //not working:    min: 80,
+                                    //not working:    max: 90
+                                    // not working: beginAtZero: true
+                                    }
+                                }],
+                                xAxes: [{
+                                    scaleLabel: {
+                                        fontSize: 16,
+                                        display: true,
+                                        labelString: 'Sarcasm Probability'
+                                                },
+                                    ticks: {
+                                        fontSize: 16,
+                                    //not working:    min: 80,
+                                    //not working:    max: 90
+                                    beginAtZero: true
+                                    }
+                                }]
+                            }
+                              }
+                          });
+
+                        })();
+                             </script>
+            <!--    </div> -->
+            <!-- END CONTENT FROM INDEX10.HTML FOR TWEET SCORE BARCHART -->
+        </div>
+        <div class="item">
+            <!--<img src="http://placehold.it/350x150">-->
+            <!-- CONTENT FROM INDEX10.HTML FOR TWEET SCORE BARCHART -->
+            <!--<div class="slide slide1 showing"> -->
+                <!--    <div class="center_chart2"> -->
+                            <canvas id="myChart9" width="400" height="300"> </canvas>
+                            <!-- the below line of code required for the horizontal barchart -->
+                            <script   src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+                            <!-- the below line of code required for the horizontal barchart -->
+                            <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js'></script>
+
+                <!--    </div> -->
+                        <!-- JavaScript for the second horizontal barchart -->
+                        <script type="text/javascript">
+                        //Create horizontalBar plug-in for ChartJS
+                        //This code is pasted in from 'horizontalBarPlugin.js'
+                        var originalLineDraw = Chart.controllers.horizontalBar.prototype.draw;
+                        Chart.helpers.extend(Chart.controllers.horizontalBar.prototype, {
+
+                            draw: function () {
+                                originalLineDraw.apply(this, arguments);
+
+                                var chart = this.chart;
+                                var ctx = chart.chart.ctx;
+
+                                var index = chart.config.options.lineAtIndex;
+                                if (index) {
+
+                                    var xaxis = chart.scales['x-axis-0'];
+                                    var yaxis = chart.scales['y-axis-0'];
+
+                                    var x1 = xaxis.getPixelForValue(index);
+                                    var y1 = 0;
+
+                                    var x2 = xaxis.getPixelForValue(index);
+                                    var y2 = yaxis.height;
+
+                                    ctx.save();
+                                    ctx.beginPath();
+                                    ctx.moveTo(x1, y1);
+                                    ctx.strokeStyle = 'red';
+                                    ctx.lineTo(x2, y2);
+                                    ctx.stroke();
+                                    ctx.restore();
+
+                                    ctx.font = '16px Arial'
+                                    ctx.fillStyle = "#ff0000";
+                                    ctx.fillText("Average Score", x2, y2-250);
+                                }
+                            }
+                        });
+                             </script>
+                        <script type="text/javascript">
+                        //Build the chart
+                        // pasted from BuildChart.js
+                        (function() {
+                          var data = {
+                              //     labels: ["Current Tweet"],//, "February", "March", "April", "May", "June", "July"],
+                              //        labels: [{{bar_labels|safe}}],
+                                      labels: [
+                                          {% for item in car_labels2 %}
+                                          "{{ item|safe }}",
+                                          {% endfor %}
+                                              ],
+                              datasets: [
+                                  {
+                                    //  label: "Average Score",
+                                      backgroundColor: [
+                                          'rgba(255, 99, 132, 0.2)',    //red
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                    //      'rgba(255, 206, 86, 0.2)',    // yellow
+                                    //      'rgba(75, 192, 192, 0.2)',    // green
+                                    //      'rgba(153, 102, 255, 0.2)',
+                                    //      'rgba(255, 159, 64, 0.2)'
+                                      ],
+                                      borderColor: [
+                                          'rgba(255,99,132,1)',         //red
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+
+                                    //      'rgba(255, 206, 86, 1)',      //yellow
+                                    //      'rgba(75, 192, 192, 1)'      // green
+                                    //      'rgba(153, 102, 255, 1)',
+                                    //      'rgba(255, 159, 64, 1)'
+                                      ],
+                                      borderWidth: 1,
+                                      //      data: [75.0, 80.0, 85.0, 90.0, 95.0],
+                                      //    data: [{{ prob_sarc2_0|safe }}],//[65.0, 59.0, 80.0, 81.0, 56.0, 55.0, 40.0],
+                                      //      data: [{{bar_values|safe}}],
+                                              data : [
+                                                  {% for item in car_values2 %}
+                                                "{{ item|safe }}",
+                                                  {% endfor %}
+                                                      ],
+                                        }
+                                    ]
+                                };
+                          //Load Chart
+                          var ctx = $("#myChart9"); // how do we get the other charts such as  'MyChart3' loaded? What calls this function??
+                          var myBarChart = new Chart(ctx, {
+                              type: 'horizontalBar',
+                              data: data,
+                              options: {
+                                  //Set the index of the value where you want to draw the line
+                                  //lineAtIndex:{{ave_username_score}},
+                                  legend: {
+                                    display: false},
+                                    scales: {
+                                yAxes: [{
+                                        ticks: {
+                                        fontSize: 12,
+                                    //not working:    min: 80,
+                                    //not working:    max: 90
+                                    // not working: beginAtZero: true
+                                    }
+                                }],
+                                xAxes: [{
+                                    scaleLabel: {
+                                        fontSize: 16,
+                                        display: true,
+                                        labelString: 'Sarcasm Probability'
+                                                },
+                                    ticks: {
+                                        fontSize: 16,
+                                    //not working:    min: 80,
+                                    //not working:    max: 90
+                                    beginAtZero: true
+                                    }
+                                }]
+                            }
+                              }
+                          });
+
+                        })();
+                             </script>
+            <!--    </div> -->
+            <!-- END CONTENT FROM INDEX10.HTML FOR TWEET SCORE BARCHART -->
+        </div>
+        <div class="item">
+            <!--<img src="http://placehold.it/350x150">-->
+            <!-- CONTENT FROM INDEX10.HTML FOR TWEET SCORE BARCHART -->
+            <!--<div class="slide slide1 showing"> -->
+                <!--    <div class="center_chart2"> -->
+                            <canvas id="myChart10" width="400" height="300"> </canvas>
+                            <!-- the below line of code required for the horizontal barchart -->
+                            <script   src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+                            <!-- the below line of code required for the horizontal barchart -->
+                            <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js'></script>
+
+                <!--    </div> -->
+                        <!-- JavaScript for the second horizontal barchart -->
+                        <script type="text/javascript">
+                        //Create horizontalBar plug-in for ChartJS
+                        //This code is pasted in from 'horizontalBarPlugin.js'
+                        var originalLineDraw = Chart.controllers.horizontalBar.prototype.draw;
+                        Chart.helpers.extend(Chart.controllers.horizontalBar.prototype, {
+
+                            draw: function () {
+                                originalLineDraw.apply(this, arguments);
+
+                                var chart = this.chart;
+                                var ctx = chart.chart.ctx;
+
+                                var index = chart.config.options.lineAtIndex;
+                                if (index) {
+
+                                    var xaxis = chart.scales['x-axis-0'];
+                                    var yaxis = chart.scales['y-axis-0'];
+
+                                    var x1 = xaxis.getPixelForValue(index);
+                                    var y1 = 0;
+
+                                    var x2 = xaxis.getPixelForValue(index);
+                                    var y2 = yaxis.height;
+
+                                    ctx.save();
+                                    ctx.beginPath();
+                                    ctx.moveTo(x1, y1);
+                                    ctx.strokeStyle = 'red';
+                                    ctx.lineTo(x2, y2);
+                                    ctx.stroke();
+                                    ctx.restore();
+
+                                    ctx.font = '16px Arial'
+                                    ctx.fillStyle = "#ff0000";
+                                    ctx.fillText("Average Score", x2, y2-250);
+                                }
+                            }
+                        });
+                             </script>
+                        <script type="text/javascript">
+                        //Build the chart
+                        // pasted from BuildChart.js
+                        (function() {
+                          var data = {
+                              //     labels: ["Current Tweet"],//, "February", "March", "April", "May", "June", "July"],
+                              //        labels: [{{bar_labels|safe}}],
+                                      labels: [
+                                          {% for item in car_labels3 %}
+                                          "{{ item|safe }}",
+                                          {% endfor %}
+                                              ],
+                              datasets: [
+                                  {
+                                    //  label: "Average Score",
+                                      backgroundColor: [
+                                          'rgba(255, 99, 132, 0.2)',    //red
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                    //      'rgba(255, 206, 86, 0.2)',    // yellow
+                                    //      'rgba(75, 192, 192, 0.2)',    // green
+                                    //      'rgba(153, 102, 255, 0.2)',
+                                    //      'rgba(255, 159, 64, 0.2)'
+                                      ],
+                                      borderColor: [
+                                          'rgba(255,99,132,1)',         //red
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+
+                                    //      'rgba(255, 206, 86, 1)',      //yellow
+                                    //      'rgba(75, 192, 192, 1)'      // green
+                                    //      'rgba(153, 102, 255, 1)',
+                                    //      'rgba(255, 159, 64, 1)'
+                                      ],
+                                      borderWidth: 1,
+                                      //      data: [75.0, 80.0, 85.0, 90.0, 95.0],
+                                      //    data: [{{ prob_sarc2_0|safe }}],//[65.0, 59.0, 80.0, 81.0, 56.0, 55.0, 40.0],
+                                      //      data: [{{bar_values|safe}}],
+                                              data : [
+                                                  {% for item in car_values3 %}
+                                                "{{ item|safe }}",
+                                                  {% endfor %}
+                                                      ],
+                                        }
+                                    ]
+                                };
+                          //Load Chart
+                          var ctx = $("#myChart10"); // how do we get the other charts such as  'MyChart3' loaded? What calls this function??
+                          var myBarChart = new Chart(ctx, {
+                              type: 'horizontalBar',
+                              data: data,
+                              options: {
+                                  //Set the index of the value where you want to draw the line
+                                  //lineAtIndex:{{ave_username_score}},
+                                  legend: {
+                                    display: false},
+                                    scales: {
+                                yAxes: [{
+                                        ticks: {
+                                        fontSize: 12,
+                                    //not working:    min: 80,
+                                    //not working:    max: 90
+                                    // not working: beginAtZero: true
+                                    }
+                                }],
+                                xAxes: [{
+                                    scaleLabel: {
+                                        fontSize: 16,
+                                        display: true,
+                                        labelString: 'Sarcasm Probability'
+                                                },
+                                    ticks: {
+                                        fontSize: 16,
+                                    //not working:    min: 80,
+                                    //not working:    max: 90
+                                    beginAtZero: true
+                                    }
+                                }]
+                            }
+                              }
+                          });
+
+                        })();
+                             </script>
+            <!--    </div> -->
+            <!-- END CONTENT FROM INDEX10.HTML FOR TWEET SCORE BARCHART -->
+        </div>
+        <div class="item">
+            <!--<img src="http://placehold.it/350x150">-->
+            <!-- CONTENT FROM INDEX10.HTML FOR TWEET SCORE BARCHART -->
+            <!--<div class="slide slide1 showing"> -->
+                <!--    <div class="center_chart2"> -->
+                            <canvas id="myChart11" width="400" height="300"> </canvas>
+                            <!-- the below line of code required for the horizontal barchart -->
+                            <script   src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+                            <!-- the below line of code required for the horizontal barchart -->
+                            <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js'></script>
+
+                <!--    </div> -->
+                        <!-- JavaScript for the second horizontal barchart -->
+                        <script type="text/javascript">
+                        //Create horizontalBar plug-in for ChartJS
+                        //This code is pasted in from 'horizontalBarPlugin.js'
+                        var originalLineDraw = Chart.controllers.horizontalBar.prototype.draw;
+                        Chart.helpers.extend(Chart.controllers.horizontalBar.prototype, {
+
+                            draw: function () {
+                                originalLineDraw.apply(this, arguments);
+
+                                var chart = this.chart;
+                                var ctx = chart.chart.ctx;
+
+                                var index = chart.config.options.lineAtIndex;
+                                if (index) {
+
+                                    var xaxis = chart.scales['x-axis-0'];
+                                    var yaxis = chart.scales['y-axis-0'];
+
+                                    var x1 = xaxis.getPixelForValue(index);
+                                    var y1 = 0;
+
+                                    var x2 = xaxis.getPixelForValue(index);
+                                    var y2 = yaxis.height;
+
+                                    ctx.save();
+                                    ctx.beginPath();
+                                    ctx.moveTo(x1, y1);
+                                    ctx.strokeStyle = 'red';
+                                    ctx.lineTo(x2, y2);
+                                    ctx.stroke();
+                                    ctx.restore();
+
+                                    ctx.font = '16px Arial'
+                                    ctx.fillStyle = "#ff0000";
+                                    ctx.fillText("Average Score", x2, y2-250);
+                                }
+                            }
+                        });
+                             </script>
+                        <script type="text/javascript">
+                        //Build the chart
+                        // pasted from BuildChart.js
+                        (function() {
+                          var data = {
+                              //     labels: ["Current Tweet"],//, "February", "March", "April", "May", "June", "July"],
+                              //        labels: [{{bar_labels|safe}}],
+                                      labels: [
+                                          {% for item in car_labels4 %}
+                                          "{{ item|safe }}",
+                                          {% endfor %}
+                                              ],
+                              datasets: [
+                                  {
+                                    //  label: "Average Score",
+                                      backgroundColor: [
+                                          'rgba(255, 99, 132, 0.2)',    //red
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                          'rgba(54, 162, 235, 0.2)',    // light blue
+                                    //      'rgba(255, 206, 86, 0.2)',    // yellow
+                                    //      'rgba(75, 192, 192, 0.2)',    // green
+                                    //      'rgba(153, 102, 255, 0.2)',
+                                    //      'rgba(255, 159, 64, 0.2)'
+                                      ],
+                                      borderColor: [
+                                          'rgba(255,99,132,1)',         //red
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+                                          'rgba(54, 162, 235, 1)',      // light blue
+
+                                    //      'rgba(255, 206, 86, 1)',      //yellow
+                                    //      'rgba(75, 192, 192, 1)'      // green
+                                    //      'rgba(153, 102, 255, 1)',
+                                    //      'rgba(255, 159, 64, 1)'
+                                      ],
+                                      borderWidth: 1,
+                                      //      data: [75.0, 80.0, 85.0, 90.0, 95.0],
+                                      //    data: [{{ prob_sarc2_0|safe }}],//[65.0, 59.0, 80.0, 81.0, 56.0, 55.0, 40.0],
+                                      //      data: [{{bar_values|safe}}],
+                                              data : [
+                                                  {% for item in car_values4 %}
+                                                "{{ item|safe }}",
+                                                  {% endfor %}
+                                                      ],
+                                        }
+                                    ]
+                                };
+                          //Load Chart
+                          var ctx = $("#myChart11"); // how do we get the other charts such as  'MyChart3' loaded? What calls this function??
+                          var myBarChart = new Chart(ctx, {
+                              type: 'horizontalBar',
+                              data: data,
+                              options: {
+                                  //Set the index of the value where you want to draw the line
+                                  //lineAtIndex:{{ave_username_score}},
+                                  legend: {
+                                    display: false},
+                                    scales: {
+                                yAxes: [{
+                                        ticks: {
+                                        fontSize: 12,
+                                    //not working:    min: 80,
+                                    //not working:    max: 90
+                                    // not working: beginAtZero: true
+                                    }
+                                }],
+                                xAxes: [{
+                                    scaleLabel: {
+                                        fontSize: 16,
+                                        display: true,
+                                        labelString: 'Sarcasm Probability'
+                                                },
+                                    ticks: {
+                                        fontSize: 16,
+                                    //not working:    min: 80,
+                                    //not working:    max: 90
+                                    beginAtZero: true
+                                    }
+                                }]
+                            }
+                              }
+                          });
+
+                        })();
+                             </script>
+            <!--    </div> -->
+            <!-- END CONTENT FROM INDEX10.HTML FOR TWEET SCORE BARCHART -->
+        </div>
+      </div>
+</div>
+
+    <script type="text/javascript">//<![CDATA[
+
+
+$('.carousel').carousel({
+    interval: false
+});
+
+
+  //]]></script>
+
+  <script>
+    // tell the embed parent frame the height of the content
+    if (window.parent && window.parent.parent){
+      window.parent.parent.postMessage(["resultsFrame", {
+        height: document.body.getBoundingClientRect().height,
+        slug: "w8EG9"
+      }], "*")
+    }
+
+    // always overwrite window.name, in case users try to set it manually
+    window.name = "result"
+  </script>
+
+    <script>
+      let allLines = []
+
+      window.addEventListener("message", (message) => {
+        if (message.data.console){
+          let insert = document.querySelector("#insert")
+          allLines.push(message.data.console.payload)
+          insert.innerHTML = allLines.join(";\r")
+
+          let result = eval.call(null, message.data.console.payload)
+          if (result !== undefined){
+            console.log(result)
+          }
+        }
+      })
+    </script>
+
+<!-- END CAROUSEL CODE, source: http://jsfiddle.net/SchmalzyB/w8EG9/7/ -->
+
+
+     </center>
+         <!-- carousel javascript - original functioning js script for the carousel copy saved as 'script2_index8.js'...
+     ... and modified version to help with the second barchart is saved as 'script2_index8vs.js' -->
+     <!-- 'script2.js' controls advancing slides -->
+    <!--<script src="/static/script2_index8.js" charset="utf-8"></script>-->
+
+
+
+          <!-- end content from 'index12.html'-->
+        </div>
+      </div>
+    </div>
+  </section>
+</div> <!-- end chart-container div for tweet barchart, username form and carousels -->
+
+<!-- test code for social media buttons -->
+<style>
+
+.container {
+    /*margin-top: 200px */
+}
+
+.social-icon .fa {
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    width: 30px;
+    height: 30px !important;
+    line-height: 1;
+    font-size: 14px;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    color: #fff;
+    background: none
+}
+
+.social-icon .fa-twitter {
+    background-color: #00aced
+}
+
+.social-icon .fa-linkedin {
+    background-color: #007bb6
+}
+
+.social-icon .fa-github-alt {
+    background-color: #333333
+}
+
+.social-icon-large {
+    margin-right: 20px
+}
+
+.social-icon-large .fa {
+    font-size: 25px;
+    background: transparent;
+    color: #000;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    width: 60px;
+    height: 60px !important;
+    line-height: 1;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease
+}
+
+.social-icon-large:hover .fa-twitter {
+    background-color: #00aced
+}
+
+.social-icon-large:hover .fa-linkedin {
+    background-color: #007bb6
+}
+
+.social-icon-large:hover .fa-github-alt {
+    background-color: #333333
+}
+
+.btn-round {
+    border-radius: 4px !important
+}
+
+.btn.btn-large i {
+    font-size: 24px
+}
+
+</style>
+<!--
+<section class="wow fadeIn bg-gray animated" style="visibility: visible; animation-name: fadeIn;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 center-col text-center">
+                <a href="#" class="btn social-icon button" data-abc="true"><i class="fa fa-twitter btn-round"></i></a>
+                <a href="#" class="btn social-icon button" data-abc="true"><i class="fa fa-github-alt btn-round"></i></a>
+                <a href="#" class="btn social-icon button" data-abc="true"><i class="fa fa-linkedin btn-round"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+-->
+<!-- End test code for social media buttons -->
+
+
+<!-- Original Footer -->
+  <!-- <style>
+  footer {
+    clear: both;
+    position: relative;
+    height: 175px;
+    margin-top: 75px;
+    position: absolute;
+    bottom: 0;
+    }
+    </style> -->
+  <footer class="py-5 bg-dark footer" id="myFooter">
+    <div class="container">
+      <p class="m-0 text-center text-white">Created by William C. Webb 2020</p>
+      <br>
+      <section class="wow fadeIn bg-gray animated" style="visibility: visible; animation-name: fadeIn;">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-12 col-sm-12 center-col text-center">
+                      <a href="https://twitter.com/data_ecology" class="btn social-icon button" data-abc="true"><i class="fa fa-twitter btn-round"></i></a>
+                      <a href="https://github.com/williamwebb35/Predicting_Sarcasm" class="btn social-icon button" data-abc="true"><i class="fa fa-github-alt btn-round"></i></a>
+                      <a href="https://www.linkedin.com/in/william-webb-phd-b303618/" class="btn social-icon button" data-abc="true"><i class="fa fa-linkedin btn-round"></i></a>
+                  </div>
+              </div>
+          </div>
+      </section>
+      <br>
+      <!-- LinkedIn button code
+      <a href="https://www.linkedin.com/in/william-webb-phd-b303618/">
+      <img src="/static/images/LI-In-Bug.png" alt="LinkedIn Logo and link to profile" style="width:60px;height:50px;">
+      </a>
+            End LinkedIn button code -->
+    </div>
+  </footer>
+<!-- End original footer -->
+
+
+  <!-- Bootstrap core JavaScript -->
+ <!-- <script src="vendor/jquery/jquery.min.js"></script>-->
+ <!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
+
+  <!-- Plugin JavaScript -->
+ <!-- <script src="vendor/jquery-easing/jquery.easing.min.js"></script>-->
+
+  <!-- Custom JavaScript for this theme -->
+ <!-- <script src="js/scrolling-nav.js"></script> -->
+
+  <!-- External JS  -->
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+  <script>
+      function format(){
+        var y = document.getElementById("myChart").style.height
+        if (y == '388px') {
+            document.getElementById("bottom").style.display = 'block';
+            document.getElementById("myChart").style.display = 'block';
+            document.getElementById("myChart").style.display = 'block';
+            document.getElementById("myFooter").style.clear = 'both';
+            document.getElementById("myFooter").style.position = 'relative';
+            document.getElementById("myFooter").style.height = '175px';
+            document.getElementById("myFooter").style.marginTop = '75px';
+        }
+        else {
+            document.getElementById("bottom").style.display = 'none';
+            document.getElementById("myChart").style.display = 'none';
+            document.getElementById("myFooter").style.clear = 'both';
+            document.getElementById("myFooter").style.position = 'absolute';
+            document.getElementById("myFooter").style.bottom = '0';
+            document.getElementById("myFooter").style.width = '100%';
+        }
+      }
+  </script>
+
+</body>
+</html>
