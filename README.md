@@ -13,7 +13,7 @@ I used NLP and machine learning to predict sarcastic tweets and developed a [web
           Preprocesses tweets
       * [Classifiers](https://github.com/williamwebb35/sarcasm_is_bad/blob/master/scripts_pickled_web/OOP_clas_def.py)   
           Trains and fits classifier models
-      * [Pipeline](https://github.com/williamwebb35/sarcasm_is_bad/blob/master/scripts_pickled_web/pipeline_capstone2.py) 
+      * [Pipeline](https://github.com/williamwebb35/sarcasm_is_bad/blob/master/scripts_pickled_web/pipeline_capstone2.py)    
           Combines the preprocessing and model-fitting code into a single pipeline
       * [Web app](https://github.com/williamwebb35/sarcasm_is_bad/blob/master/scripts_pickled_web/test_app3.py)  
           Predicts sarcastic tweets
