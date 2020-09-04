@@ -53,9 +53,9 @@ app = Flask(__name__) # original working version this version works on my local 
 def contact():
     return render_template('contact.html')
 
-@app.route('/about')
+@app.route('/about3')
 def about():
-    return render_template('about.html')
+    return render_template('about3.html')
 
 #app = Flask(__name__, static_url_path="/static", static_folder='C:/Users/sinua/Documents/Data_Science_Coding/Springboard/Capstone2/static') # version suggested by reference: https://stackoverflow.com/questions/44340416/css-and-js-not-working-on-flask-framework
 #app = Flask(__name__,
