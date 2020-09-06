@@ -227,21 +227,14 @@
         font-size: 24px
     }
 
-
-    /* When the screen is less than 600 pixels wide, alter the footer to math the header */
-    @media screen and (max-width: 600px) {
-
-      position: relative;
-      }
-    }
-
-    /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+    /* When the screen is less than 600 pixels wide, alter the footer to fix the footer styling */
     @media screen and (max-width: 600px) {
       #footer {
         position:relative;
       }
     }
 
+    /* When the screen is greater than than 600 pixels wide, alter the footer to affix the footer to the bottom of the screen */
     @media screen and (min-width: 601px) {
       #footer {
         position: absolute;
