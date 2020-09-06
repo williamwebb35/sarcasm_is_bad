@@ -107,7 +107,7 @@
     </div>
 
     <!-- Header -->
-    <header class="bg-primary text-white">
+    <header class="bg-primary text-white" style="margin-bottom:25px;">
       <div class="container text-center">
       <!-- <h1>Welcome to Scrolling Nav</h1> -->
       <br>
@@ -117,22 +117,7 @@
       </div>
     </header>
     <!-- End Header -->
-            <style>
-      .center_chart {
-        margin: 0;
-        position: absolute;
-        top: 60%;
-        left: 50%;
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
-      }
-      </style>
-      <!-- end css code for vertical and horizontal centering of the celebrity usernames ...
-      ...horizontal barchart - source:https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_center-vertical2 -->
-
-  <!-- reference for .chart-container:https://stackoverflow.com/questions/37621020/setting-width-and-height -->
     <style>
-
     .about-container { 
       height: 350px;
       position: relative;
@@ -242,8 +227,31 @@
         font-size: 24px
     }
 
+
+    /* When the screen is less than 600 pixels wide, alter the footer to math the header */
+    @media screen and (max-width: 600px) {
+
+      position: relative;
+      }
+    }
+
+    /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+    @media screen and (max-width: 600px) {
+      #footer {
+        position:relative;
+      }
+    }
+
+    @media screen and (min-width: 601px) {
+      #footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%
+      }
+    }
     </style>
-    <footer class="py-5 bg-dark footer" id="myFooter">
+
+    <footer class="py-5 bg-dark footer" id="footer">
       <div class="container">
         <p class="m-0 text-center text-white">Created by William C. Webb 2020</p>
         <br>
