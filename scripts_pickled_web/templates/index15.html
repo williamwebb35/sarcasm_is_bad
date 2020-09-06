@@ -102,7 +102,7 @@
   <body id="page-top" onload="format()">
     <!-- navigation bar in the following div is based on https://www.w3schools.com/howto/howto_js_topnav_responsive.asp -->
     <div class="topnav" id="myTopnav">
-      <a class="js-scroll-trigger" href="https://www.thesarcometer.com" class="active">THE SARCOMETER</a>
+      <a class="js-scroll-trigger" href="#home" class="active">THE SARCOMETER</a>
       <a class="js-scroll-trigger other" href="https://www.thesarcometer.com">Home</a>
       <a class="js-scroll-trigger other" href="https://www.thesarcometer.com/about3">About</a>
       <a href="javascript:void(0);" class="icon" onclick="myFunction()">
@@ -156,7 +156,7 @@
   }
   </style>
   
-  <div class="chart-container container" id="chart-container-div" style="position: relative;">
+  <div class="chart-container container">
           <br>
           <br>
   
@@ -179,14 +179,8 @@
               originalLineDraw.apply(this, arguments);
   
               var chart = this.chart;
-            //   var width  = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-            //   if (width < 601) {
-            //     chart.width = 341;
-            //     chart.height = 136;
-            //   }
-
               var ctx = chart.chart.ctx;
-
+  
               var index = chart.config.options.lineAtIndex;
               if (index) {
   
@@ -269,8 +263,6 @@
             type: 'horizontalBar',
             data: data,
             options: {
-                responsive: true,
-                maintainAspectRation: false,
                 //Set the index of the value where you want to draw the line
                 lineAtIndex:{{ave_username_score}},
                 legend: {
@@ -1068,8 +1060,8 @@
           </div>
         </div>
         <!-- Carousel nav -->
-        <a class="carousel-control left"  id="control-left" href=".carousel" data-slide="prev">‹</a>
-        <a class="carousel-control right" id="control-right" href=".carousel" data-slide="next">›</a>
+        <a class="carousel-control left" href=".carousel" data-slide="prev">‹</a>
+        <a class="carousel-control right" href=".carousel" data-slide="next">›</a>
       </div>
   <!-- CAROUSEL 2 -->
       <div id="myCarousel2" class="carousel slide" data-interval="false">
@@ -1890,7 +1882,15 @@
                                         ],
                                         borderColor: [
                                             'rgba(255,99,132,1)',         //red
-                                            'rgba(5chart-container-div, 162, 235, 1)',      // light blue
+                                            'rgba(54, 162, 235, 1)',      // light blue
+                                            'rgba(54, 162, 235, 1)',      // light blue
+                                            'rgba(54, 162, 235, 1)',      // light blue
+                                            'rgba(54, 162, 235, 1)',      // light blue
+                                            'rgba(54, 162, 235, 1)',      // light blue
+                                            'rgba(54, 162, 235, 1)',      // light blue
+                                            'rgba(54, 162, 235, 1)',      // light blue
+                                            'rgba(54, 162, 235, 1)',      // light blue
+                                            'rgba(54, 162, 235, 1)',      // light blue
                                             'rgba(54, 162, 235, 1)',      // light blue
                                             'rgba(54, 162, 235, 1)',      // light blue
                                             'rgba(54, 162, 235, 1)',      // light blue
@@ -2024,6 +2024,10 @@
   <!-- test code for social media buttons -->
   <style>
   
+  .container {
+      /*margin-top: 200px */
+  }
+  
   .social-icon .fa {
       text-align: center;
       display: table-cell;
@@ -2091,19 +2095,8 @@
   /* When the screen is less than 600 pixels wide, alter the footer to fix the footer styling */
   @media screen and (max-width: 600px) {
     #footer {
-      clear: both;
       position:relative;
-      height: 175px;
-      margin-top: 175px;
       }
-    #control-left {
-        margin-left: -20px;
-        margin-top: 50px;
-    }
-    #control-right {
-        margin-right: -20px;
-        margin-top: 50px;
-    }
   }
 
   /* When the screen is greater than than 600 pixels wide, alter the footer to affix the footer to the bottom of the screen */
@@ -2112,14 +2105,6 @@
       position: absolute;
       bottom: 0;
       width: 100%
-    }
-    #control-left {
-        margin-left: -75px;
-        margin-top: 0px;
-    }
-    #control-right {
-        margin-right: -75px;
-        margin-top: 0px;
     }
   }
 
@@ -2152,20 +2137,11 @@
           var y = document.getElementById("myChart").style.height
           if (y == '388px') {
               document.getElementById("bottom").style.display = 'block';
-              document.getElementById("chart-container-div").style.width = '100%';
-              document.getElementById("chart-container-div").style.display = 'block';
               document.getElementById("myChart").style.display = 'block';
-              //document.getElementById("myChart").style.width = '100%';
-              document.getElementById("footer").style.clear = 'both';
-              document.getElementById("footer").style.position = 'relative';
-              document.getElementById("footer").style.height = '175px';
-              document.getElementById("footer").style.marginTop = '75px';
-              document.getElementById("myCarousel1").style.width = '100%';
           }
           else {
               document.getElementById("bottom").style.display = 'none';
               document.getElementById("myChart").style.display = 'none';
-              document.getElementById("chart-container-div").style.display = 'none';
           }
         }
     </script>
