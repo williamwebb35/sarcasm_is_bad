@@ -2149,13 +2149,12 @@
   
     <script>
         function format(){
-          var y = document.getElementById("myChart").style.height
-          if (y == '388px') {
+          var y = document.getElementById("myChart").height
+          if (y != 400) {
               document.getElementById("bottom").style.display = 'block';
               document.getElementById("chart-container-div").style.width = '100%';
               document.getElementById("chart-container-div").style.display = 'block';
               document.getElementById("myChart").style.display = 'block';
-              //document.getElementById("myChart").style.width = '100%';
               document.getElementById("footer").style.clear = 'both';
               document.getElementById("footer").style.position = 'relative';
               document.getElementById("footer").style.height = '175px';
