@@ -17,24 +17,8 @@ from email.mime.text import MIMEText
 #h = hpy()
 #print("Guppy and Heapy from 'test_app3.py",h.heap())
 
+    # load the pickled pipeline instance
 pipe_object = load_pipeline_object('pipeline_object_pickled')
-
-    # load the largest average score for a username
-#largest_ave_score =  OOP_pickle_util.load_largest_ave_score('largest_ave_score_pickled')        
-    # load the username with the largest average tweet score
-#largest_username =  OOP_pickle_util.load_largest_username('largest_username_pickled') 
-    # load the lowest average tweet score
-#lowest_ave_score =  OOP_pickle_util.load_lowest_ave_score('lowest_ave_score_pickled') 
-    # load the username with the lowest average tweet score
-#lowest_username =  OOP_pickle_util.load_lowest_username('lowest_username_pickled')     
-    # load the largest single tweet score
-#largest_score =  OOP_pickle_util.load_largest_score('largest_score_pickled')  
-    # load the tweet with the largest single tweet score
-#largest_tweet =  OOP_pickle_util.load_largest_tweet('largest_tweet_pickled') 
-    # load the lowest single tweet score 
-#lowest_score =  OOP_pickle_util.load_lowest_score('lowest_score_pickled') 
-        
-#lowest_tweet =  OOP_pickle_util.load_lowest_tweet('lowest_tweet_pickled') 
 
     # load pickled list of average scores
 average_scores = OOP_pickle_util.load_average_scores('average_scores_pickled')
@@ -49,50 +33,22 @@ ave_username_score = round(total/len(average_scores),2)
 
 app = Flask(__name__) # original working version this version works on my local machine 
 
-
+    # flask decorator for the about page
 @app.route('/about3')
 def about():
     return render_template('about3.html')
 
-#app = Flask(__name__, static_url_path="/static", static_folder='C:/Users/sinua/Documents/Data_Science_Coding/Springboard/Capstone2/static') # version suggested by reference: https://stackoverflow.com/questions/44340416/css-and-js-not-working-on-flask-framework
-#app = Flask(__name__,
-#            static_folder='static',
-#            template_folder='Templates') # reference: https://stackoverflow.com/questions/58269486/how-to-get-flask-recognise-the-css-and-js-files-in-the-static-folder
-#app = Flask(__name__, static_url_path='/static') # reference: https://stackoverflow.com/questions/54923070/flask-javascript-and-css-not-being-correctly-rendered
-
-#app = Flask(name, template_folder='/home/williamwebb35/templates') # version suggested by...
-    #... pythonanywhere forums discussion to help solve pythonanywhere 'templateNotFound' error ; reference: https://www.pythonanywhere.com/forums/topic/1039/
-
-    # testing 'test7.html' for the vertical line with a horizontal bar chart...making...
-    #... sure the template works with the previous files
-  
+    # flask decorator for the landing page  
 @app.route('/', methods=['GET', 'POST'])
 def test7():        
     if request.method == "GET":
-              
-        #return render_template('test7.html') #working version w/o carousel
-        #return render_template('index9.html') # working version with widget carousel 
-        #return render_template('index10.html') # working version with widget carousel, testing barchart carousel
-        #return app.send_static_file('index9.html')     # version suggested by reference: https://stackoverflow.com/questions/44340416/css-and-js-not-working-on-flask-framework                    
-        #return render_template('owl_carousel_test.html')
-        return render_template('index15.html') # draft version with synced carousel
+        return render_template('index15.html') # render the landing page
         
-    else:
-    #elif request.form['novel_username'].startswith('@'):
-    #username = x #test value
-        # names for the objects returned by the 'predict_tweet' method of 'pipeline_capstone2.py'...
-        #... which correspond to the following objects returned by 'predict_tweet':...
-        #...tweet_data, prob_sarc_tweet, self.df, ave_sarc_score, self.mean_sarc_score, self.median_sarc_score
-    
-        #app.logger.warning('A warning occurred (%d apples)', 42)
-        #app.logger.error('An error occurred')
-        #app.logger.info('Info')
+    else:       
+        x = request.form['novel_username'] # twitter username entered on the landing page
+        y = str(x) # convert the username to string format
         
-        x = request.form['novel_username']    
-        y = str(x) 
-        
-        if y.startswith('@'):
-            
+        if y.startswith('@'): # check that a twitter usernmae was entered beginning with an '@'            
             username = request.form['novel_username'] 
             
                 # pipeline object using the entered novel username
@@ -134,11 +90,10 @@ def test7():
                 #pipeline for @DarthVader
             DV_x_input, DV_predictions, DV_df, DV_df_nb, DV_ave_sarc_score, DV_mean_sarc_score, DV_median_sarc_score, DV_most_sarcastic_tweet, DV_most_sarcastic_score = pipe_object("@DarthVader", "@DarthVader")
                     
-            
-            names = [username,"@BarackObama","@katyperry", "@DarthVader"]#,"Average Username Score"] 
-                #bar_labels = ['a','b','c','d'] # fixed values for testing
-            scores = [ave_sarc_score, BA_ave_sarc_score, KP_ave_sarc_score, DV_ave_sarc_score]#, ave_username_score]
-                #bar_values = [10,20,30,40] # fixed values for testing
+                # create a list of names for the celebrity barchart
+            names = [username,"@BarackObama","@katyperry", "@DarthVader"] 
+                # create a list of scores for the celebrity barchart    
+            scores = [ave_sarc_score, BA_ave_sarc_score, KP_ave_sarc_score, DV_ave_sarc_score]
                 # create dict from names and scores for sorting scores descending
             name_scores = dict(zip(names, scores))
                 # create a list of tuples sorted by scores descending for sorting scores descending
@@ -152,22 +107,6 @@ def test7():
             
                 # code block for organizing the labels and scores of the first...
                     #... barchart in the third carousel
-                # labels for the first barchart of the third carousel
-            """
-            carouselthree_labels0 = df_nb.text[0]
-                # values for the first barchart of the third carousel 
-            carouselthree_values0 = df_nb.mnb_sarc[0]
-                # create dict from labels and values for sorting values descending
-            labels_values0 = dict(zip(carouselthree_labels0, carouselthree_values0))
-                # create a list of tuples sorted by values descending for sorting values descending
-            sort_labels0 = sorted(labels_values0.items(), key=lambda x: x[1], reverse=True)
-                # convert sorted list of tuples into a dictionary for sorting values descending
-            sort_labels0 = dict(sort_labels0)
-                # create a list of values now sorted descending
-            car_values0 = list(sort_labels0.values())
-                # create a list of usernames sorted according to respective scores, descending
-            car_labels0 = list(sort_labels0.keys())
-            """
             car_labels0 = df_nb.text_final[0][0].split()
             car_labels1 = df_nb.text_final[1][0].split()
             car_labels2 = df_nb.text_final[2][0].split()
@@ -180,25 +119,11 @@ def test7():
             car_values3 = sorted(df_nb.mnb_sarc[3],reverse = True)
             car_values4 = sorted(df_nb.mnb_sarc[4],reverse = True)
             
-            #bar_labels=labels # original comment out for testing
-            #bar_values=values # original comment out for testing
-                
-            #return render_template('test7.html',           # working version w/o carousel
-            #return render_template('index9.html',           # working version with widget carousel
-            #return render_template('owl_carousel_test.html')
-            #return render_template('index10.html', # working version with widget carousel and testing barchart carousel
-            return render_template('index15.html', # draft version with synced carousel                          
-                                       #username = username,
-                                       #ave_sarc_score = ave_sarc_score,
-                                       #BA_ave_sarc_score = BA_ave_sarc_score,
-                                       #title='Username Score Comparison', 
-                                       #max=100, 
-                                       bar_labels=bar_labels, #original, comment out for testing
-                                       #bar_values=bar_values,
+            return render_template('index15.html',                           
+                                       bar_labels=bar_labels, 
                                        bar_values=bar_values,
                                        ave_username_score = ave_username_score,
                                        embed_tweet = "https://twitter.com/NateSilver538/status/1260324940114464768",
-                                       #tweet_id = '899138450657484800',
                                        most_sarcastic_id0 = most_sarcastic_id0,
                                        most_sarcastic_id1 = most_sarcastic_id1,
                                        most_sarcastic_id2 = most_sarcastic_id2,
@@ -213,7 +138,6 @@ def test7():
                                        scores = scores,
                                        username = username,
                                        df_nb = df_nb,
-                                       #car_values0 = car_values0,
                                        car_labels0 = car_labels0,
                                        car_labels1 = car_labels1,
                                        car_labels2 = car_labels2,
@@ -224,16 +148,9 @@ def test7():
                                        car_values2 = car_values2,
                                        car_values3 = car_values3,
                                        car_values4 = car_values4)
-                                        # tweet id for the most-sarcastic tweet, which should be...
-                                                                #... in the first row"""
         
         else:
-            #return render_template('test7.html') #working version w/o carousel
-            #return render_template('index9.html') # working version with widget carousel
-            #return render_template('index10.html') # working version with widget carousel, testing barchart carousel
-            #return app.send_static_file('index9.html')     # version suggested by reference: https://stackoverflow.com/questions/44340416/css-and-js-not-working-on-flask-framework                    
-            #return render_template('owl_carousel_test.html')
-            return render_template('index15.html') # draft version with synced carousel
+            return render_template('index15.html') 
 
     # Catches an internal server error and returns the homepage
     # Creates an error log in case of an internal server error
@@ -284,9 +201,7 @@ def page_not_found(e):
     
 if __name__ == "__main__":
     app.run()
-    #handler = RotatingFileHandler('foo.log', maxBytes=10000, backupCount=1)
-    #handler.setLevel(logging.INFO)
-    #app.logger.addHandler(handler)
+    
     """
         # code block below creates log file
     app.logger = logging.getLogger('dev')
