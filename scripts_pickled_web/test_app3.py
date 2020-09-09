@@ -20,21 +20,21 @@ from email.mime.text import MIMEText
 pipe_object = load_pipeline_object('pipeline_object_pickled')
 
     # load the largest average score for a username
-largest_ave_score =  OOP_pickle_util.load_largest_ave_score('largest_ave_score_pickled')        
+#largest_ave_score =  OOP_pickle_util.load_largest_ave_score('largest_ave_score_pickled')        
     # load the username with the largest average tweet score
-largest_username =  OOP_pickle_util.load_largest_username('largest_username_pickled') 
+#largest_username =  OOP_pickle_util.load_largest_username('largest_username_pickled') 
     # load the lowest average tweet score
-lowest_ave_score =  OOP_pickle_util.load_lowest_ave_score('lowest_ave_score_pickled') 
+#lowest_ave_score =  OOP_pickle_util.load_lowest_ave_score('lowest_ave_score_pickled') 
     # load the username with the lowest average tweet score
-lowest_username =  OOP_pickle_util.load_lowest_username('lowest_username_pickled')     
+#lowest_username =  OOP_pickle_util.load_lowest_username('lowest_username_pickled')     
     # load the largest single tweet score
-largest_score =  OOP_pickle_util.load_largest_score('largest_score_pickled')  
+#largest_score =  OOP_pickle_util.load_largest_score('largest_score_pickled')  
     # load the tweet with the largest single tweet score
-largest_tweet =  OOP_pickle_util.load_largest_tweet('largest_tweet_pickled') 
+#largest_tweet =  OOP_pickle_util.load_largest_tweet('largest_tweet_pickled') 
     # load the lowest single tweet score 
-lowest_score =  OOP_pickle_util.load_lowest_score('lowest_score_pickled') 
+#lowest_score =  OOP_pickle_util.load_lowest_score('lowest_score_pickled') 
         
-lowest_tweet =  OOP_pickle_util.load_lowest_tweet('lowest_tweet_pickled') 
+#lowest_tweet =  OOP_pickle_util.load_lowest_tweet('lowest_tweet_pickled') 
 
     # load pickled list of average scores
 average_scores = OOP_pickle_util.load_average_scores('average_scores_pickled')
@@ -49,9 +49,6 @@ ave_username_score = round(total/len(average_scores),2)
 
 app = Flask(__name__) # original working version this version works on my local machine 
 
-@app.route('/contact')
-def contact():
-    return render_template('contact.html')
 
 @app.route('/about3')
 def about():
