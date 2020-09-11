@@ -509,11 +509,11 @@ class Preprocessor:
             # twitter api code from "Capstone2_Draft1.ipnyb'
             # CAUTION: DO NOT SHARE THIS INFORMATION
             # Personal API Keys from the Twitter App page
-            # keys saved in 'Twitter_API_Keys.txt' and in B-folder
-        access_token = "1037745375849865216-YnlKrLd7kWlbl7oB3BHf93HVuHJqTk"
-        access_token_secret = "HQcIuFYH3GrjuBuSY54DhW1gSVXq9Cj247WNKJNlROJlx"
-        consumer_key = "ThIOxJlMpQorCjwJWzxFmqqGq"
-        consumer_secret = "VyEZIRxjDzZpdwaH6bxF6WocbHi0h6uhl30uM4Yb04E9yxSQIW"          
+            # keys saved in external text file and in B-folders
+        access_token = " "
+        access_token_secret = " "
+        consumer_key = " "
+        consumer_secret = " "          
             # OAuth process, using the keys and tokens
         auth = tw.OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)
