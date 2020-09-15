@@ -4,7 +4,7 @@ Created on Thu Feb 20 12:29:11 2020
 
 @author: sinua
 
-This file contains the functions that train and fit the model.
+This file contains the functions that train and fit the sarcasm model.
 
 
 Reference: https://towardsdatascience.com/deploying-models-to-flask-fb62155ca2c4
@@ -16,7 +16,6 @@ Reference: https://github.com/mmalinas/Springboard_Git/blob/master/Capstone2_Mel
 
 import pandas as pd
 import re # for using regular expressions to remove numbers
-#import string # for removing punctuation
 import nltk
 nltk.download('punkt')
 from nltk.corpus import stopwords
@@ -38,7 +37,6 @@ nlp = en_core_web_sm.load()
 import dill
 from Preprocessor import Preprocessor
 
-""" VARIABLES DEFINED OUTSIDE THE CLASS"""
 
 lemmatizer=WordNetLemmatizer()
 
@@ -80,7 +78,7 @@ class Predictor:
             
     """ Trains and fits the model. Note: requires Preprocessor.tweet_format() to be run 
         first on the training data ('all_sarc_and_matching_tweets.csv') as occurs in the 'main' function of 'Preprocessor.py'
-        so the training df is already available as an attribute in the 'train_and_fit' method """
+        so the training DF is already available as an attribute in the 'train_and_fit' method """
         
     def train_and_fit(self):
         print("Executing the 'train_and_fit' method which trains and tests the model.")
@@ -94,7 +92,6 @@ class Predictor:
             # assign the preprocessed DF an attribute of the current class Predictor instance
         self.df = preprop_inst.df
         
-        print("Checking the DF header:",self.df.head())
             # create the feature array for the model using the third to last column which ...
                  #... contains the final processed tweet text   
         self.X = self.df.iloc[:,-3]
@@ -163,44 +160,18 @@ class Predictor:
         self.clas_report = classification_report(self.y_test, tweet_type_predictions, digits=4)
         print(classification_report(self.y_test, tweet_type_predictions, digits=4))
         return self.cv_scores, self.clas_report
-    
-   
-        
+          
 
 if __name__ == '__main__':
     from OOP_clas_def import Predictor
     tweet_predictor = Predictor()
     tweet_predictor.train_and_fit()
-    # scores = collected_tweets.cv_score() # method needs updating
+    
     #clf = tweet_predictor.clf
     #nb_clf = tweet_predictor.nb_clf
     #OOP_pickle_util.save_clf(clf) # save logistic regression model created during the 'def train_and_fit' ...
     #... method 
     #OOP_pickle_util.save_nb_clf(nb_clf) # save multinomial naive Bayes model created during the 'def train_and_fit' ...
-    #... method 
-    #vectorizer = tweet_predictor.vectorizer
-    #OOP_pickle_util.save_vectorizer(vectorizer) #save vectorizer 
+    #... method  
     print('Predictor success!')
-    #tweet_predictor.scores()
-
-
-""" DRAFT / CUT ITEMS BELOW:
-    
-    "Use grid-searching to find the best hyperparameter alpha for multinomial naive Bayes"
-    
-    def get_alpha(self):
-           
-            # GridSearchCV
-        parameters = {'alpha':[0.01, 0.05, 0.1, 0.15, 0.5, 1, 1.5, 2.5, 5, 7.5, 10, 15, 50]}
-        MNB = MultinomialNB()
-        vectorizer = CountVectorizer()
-        X_dtm = vectorizer.fit_transform(self.X)
-        clf_grid = GridSearchCV(MNB, parameters)
-        search = clf_grid.fit(X_dtm, self.y)
-        best_params = search.best_estimator_
-        self.best_alpha = best_params.alpha
-        self.grid_results = search.cv_results_
-        print(clf_grid.cv_results_)
-        return self.best_alpha, self.grid_results
-    
-        """
+   
